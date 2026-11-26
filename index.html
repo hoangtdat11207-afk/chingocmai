@@ -1,0 +1,3063 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Một bức thư nhỏ gửi riêng chị Ngọc Mai với phong cách editorial tối giản và chân thành." />
+  <title>Gửi chị Ngọc Mai</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
+
+  <style>
+
+    :root {
+      --bg-paper: #FAF7F2;
+      --bg-card: #FFFFFF;
+      --bg-subtle: #F3EEE6;
+      --border: #E8E1D5;
+      --border-strong: #D6CBB9;
+      --text-primary: #1E1D1B;
+      --text-secondary: #635E57;
+      --text-muted: #958E85;
+      --accent: #B85D5D;
+      --accent-hover: #9E4B4B;
+      --accent-soft: #F7ECEB;
+      --champagne: #C8A97E;
+      --champagne-soft: #F5EFE4;
+
+      --font-serif: 'Lora', Georgia, 'Times New Roman', serif;
+      --font-sans: 'Be Vietnam Pro', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-pill: 999px;
+
+      --shadow-xs: 0 2px 10px rgba(30, 29, 27, 0.04);
+      --shadow-sm: 0 10px 28px rgba(30, 29, 27, 0.06);
+      --shadow-md: 0 18px 46px rgba(30, 29, 27, 0.10);
+
+      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+      --nav-height: 64px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-paper);
+      color: var(--text-primary);
+      line-height: 1.72;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-image:
+        radial-gradient(circle at 14% 12%, rgba(200, 169, 126, 0.08) 0%, transparent 42%),
+        radial-gradient(circle at 86% 28%, rgba(184, 93, 93, 0.05) 0%, transparent 46%);
+    }
+
+    body.note-locked {
+      overflow: hidden;
+      height: 100vh;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    button, input, textarea {
+      font-family: inherit;
+      color: inherit;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    .canvas-layer {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    #bg-canvas {
+      z-index: 0;
+    }
+
+    #fx-canvas {
+      z-index: 95;
+    }
+
+    .sealed-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background-color: var(--bg-paper);
+      background-image: radial-gradient(circle at 50% 42%, rgba(255, 255, 255, 0.9) 0%, rgba(243, 238, 230, 0.92) 100%);
+      transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out), visibility 0.8s;
+    }
+
+    .sealed-overlay.is-hidden {
+      opacity: 0;
+      transform: translateY(-16px);
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .sealed-kicker {
+      font-size: 0.74rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 28px;
+      font-weight: 500;
+    }
+
+    .envelope-wrap {
+      position: relative;
+      width: min(344px, 88vw);
+      height: 220px;
+      perspective: 1100px;
+      cursor: pointer;
+    }
+
+    .envelope-card {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 6px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+      transition: transform 0.35s var(--ease-out);
+    }
+
+    .envelope-wrap:hover .envelope-card {
+      transform: translateY(-4px);
+    }
+
+    .envelope-inner-sheet {
+      position: absolute;
+      left: 8%;
+      right: 8%;
+      bottom: 14px;
+      height: 82%;
+      background: #FFFEFC;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 22px 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 2;
+      transform: translateY(20%);
+      transition: transform 0.75s var(--ease-out) 0.18s;
+    }
+
+    .envelope-inner-sheet span {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.04rem;
+      color: var(--text-primary);
+    }
+
+    .sheet-rule {
+      width: 44px;
+      height: 1px;
+      background: var(--border-strong);
+      margin: 12px 0;
+    }
+
+    .sheet-bar {
+      width: 72%;
+      height: 4px;
+      border-radius: 2px;
+      background: var(--bg-subtle);
+      margin-top: 7px;
+    }
+
+    .sheet-bar.short {
+      width: 44%;
+    }
+
+    .env-fold-left,
+    .env-fold-right,
+    .env-fold-bottom {
+      position: absolute;
+      inset: 0;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .env-fold-left {
+      background: #FBF9F5;
+      clip-path: polygon(0 0, 51% 52%, 0 100%);
+    }
+
+    .env-fold-right {
+      background: #F6F2EA;
+      clip-path: polygon(100% 0, 49% 52%, 100% 100%);
+    }
+
+    .env-fold-bottom {
+      background: #FFFFFF;
+      clip-path: polygon(0 100%, 50% 48%, 100% 100%);
+      filter: drop-shadow(0 -1px 0 var(--border));
+    }
+
+    .env-flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 58%;
+      z-index: 4;
+      transform-origin: top center;
+      transition: transform 0.72s var(--ease-out);
+      filter: drop-shadow(0 4px 8px rgba(30, 29, 27, 0.06));
+    }
+
+    .env-flap::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, #FFFFFF 0%, #F7F2E9 100%);
+      clip-path: polygon(0 0, 100% 0, 50% 100%);
+      border-top-left-radius: 6px;
+      border-top-right-radius: 6px;
+    }
+
+    .wax-seal {
+      position: absolute;
+      top: 52%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 5;
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 32%, #CA6F6F 0%, #B85D5D 55%, #934343 100%);
+      border: 2px solid rgba(255, 248, 244, 0.35);
+      box-shadow:
+        0 6px 18px rgba(147, 67, 67, 0.28),
+        inset 0 1px 4px rgba(255, 255, 255, 0.3),
+        inset 0 -3px 6px rgba(78, 26, 26, 0.25);
+      display: grid;
+      place-items: center;
+      color: #FAF7F2;
+      font-family: var(--font-serif);
+      font-size: 0.96rem;
+      letter-spacing: 0.04em;
+      transition: transform 0.38s var(--ease-out), opacity 0.35s ease;
+    }
+
+    .envelope-wrap.is-opening .wax-seal {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(1.24);
+    }
+
+    .envelope-wrap.is-opening .env-flap {
+      transform: rotateX(174deg);
+      z-index: 1;
+    }
+
+    .envelope-wrap.is-opening .envelope-card {
+      overflow: visible;
+    }
+
+    .envelope-wrap.is-opening .envelope-inner-sheet {
+      transform: translateY(-44%);
+    }
+
+    .sealed-copy {
+      text-align: center;
+      margin-top: 30px;
+      max-width: 410px;
+    }
+
+    .sealed-copy h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.6rem, 4.5vw, 2.05rem);
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .sealed-copy p {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+      margin-bottom: 22px;
+    }
+
+    .sealed-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--nav-height);
+      z-index: 60;
+      background: rgba(250, 247, 242, 0.86);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(232, 225, 213, 0.8);
+    }
+
+    .top-nav-inner {
+      width: min(1040px, 92%);
+      height: 100%;
+      margin-inline: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .nav-brand {
+      font-family: var(--font-serif);
+      font-size: 1.02rem;
+      font-weight: 500;
+      text-decoration: none;
+      color: var(--text-primary);
+    }
+
+    .nav-links {
+      display: none;
+      align-items: center;
+      gap: 28px;
+      list-style: none;
+    }
+
+    @media (min-width: 768px) {
+      .nav-links {
+        display: flex;
+      }
+    }
+
+    .nav-links a {
+      font-size: 0.86rem;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent);
+    }
+
+    .page-shell {
+      position: relative;
+      z-index: 2;
+      padding-top: var(--nav-height);
+    }
+
+    .container {
+      width: min(1040px, 92%);
+      margin-inline: auto;
+    }
+
+    .container-narrow {
+      width: min(740px, 92%);
+      margin-inline: auto;
+    }
+
+    section {
+      padding: clamp(64px, 9.5vw, 108px) 0;
+    }
+
+    .section-divider {
+      width: min(1040px, 92%);
+      height: 1px;
+      background: var(--border);
+      margin-inline: auto;
+    }
+
+    .section-head {
+      margin-bottom: clamp(32px, 5vw, 48px);
+      max-width: 600px;
+    }
+
+    .section-head.is-centered {
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .section-kicker {
+      display: inline-block;
+      font-size: 0.74rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: clamp(1.72rem, 4.2vw, 2.45rem);
+      font-weight: 500;
+      line-height: 1.25;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+    }
+
+    .section-desc {
+      font-size: 0.96rem;
+      color: var(--text-secondary);
+      line-height: 1.78;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 26px;
+      min-height: 46px;
+      border-radius: var(--radius-pill);
+      border: 1px solid transparent;
+      font-size: 0.92rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.24s var(--ease-out), background-color 0.24s ease, border-color 0.24s ease, color 0.24s ease, box-shadow 0.24s ease;
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-primary {
+      background-color: var(--accent);
+      color: #FFFFFF;
+      box-shadow: 0 8px 20px rgba(184, 93, 93, 0.2);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--accent-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 12px 24px rgba(184, 93, 93, 0.26);
+    }
+
+    .btn-outline {
+      background-color: var(--bg-card);
+      color: var(--text-primary);
+      border-color: var(--border-strong);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--text-primary);
+      background-color: var(--bg-subtle);
+    }
+
+    .btn-subtle {
+      background-color: var(--bg-card);
+      color: var(--text-secondary);
+      border: 1px solid var(--border);
+      padding: 9px 18px;
+      min-height: 40px;
+      font-size: 0.84rem;
+    }
+
+    .btn-subtle:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-secondary);
+      padding: 8px 14px;
+      min-height: 38px;
+      font-size: 0.84rem;
+    }
+
+    .btn-ghost:hover {
+      color: var(--accent);
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero {
+      min-height: calc(100vh - var(--nav-height));
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: clamp(44px, 8vw, 84px) 0 36px;
+    }
+
+    .hero-card {
+      max-width: 740px;
+      margin-inline: auto;
+      padding: clamp(28px, 6vw, 58px);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .hero-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-bottom: 18px;
+      margin-bottom: 26px;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.76rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .hero-greeting {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 5.4vw, 3.15rem);
+      font-weight: 500;
+      line-height: 1.22;
+      color: var(--text-primary);
+      margin-bottom: 20px;
+    }
+
+    .hero-greeting em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .typewriter-area {
+      min-height: 92px;
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(1.06rem, 2.5vw, 1.24rem);
+      line-height: 1.78;
+      color: var(--text-primary);
+      white-space: pre-line;
+      margin-bottom: 22px;
+      padding-left: 16px;
+      border-left: 2px solid var(--champagne);
+    }
+
+    .typewriter-cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1.12em;
+      background-color: var(--accent);
+      vertical-align: -0.14em;
+      margin-left: 3px;
+      animation: caretBlink 0.9s steps(1) infinite;
+    }
+
+    .hero-paragraphs {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 28px;
+    }
+
+    .hero-paragraphs p {
+      font-size: clamp(0.98rem, 2.1vw, 1.06rem);
+      line-height: 1.88;
+      color: var(--text-secondary);
+    }
+
+    @keyframes caretBlink {
+      0%, 49% { opacity: 1; }
+      50%, 100% { opacity: 0; }
+    }
+
+    .hero-footer {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    .hero-sign {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1rem;
+      color: var(--text-primary);
+    }
+
+    .scroll-cue-wrap {
+      display: flex;
+      justify-content: center;
+      margin-top: 32px;
+    }
+
+    .scroll-cue {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.74rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.25s ease;
+    }
+
+    .scroll-cue:hover {
+      color: var(--accent);
+    }
+
+    .scroll-cue-line {
+      width: 1px;
+      height: 36px;
+      background: linear-gradient(180deg, var(--border-strong) 0%, transparent 100%);
+    }
+
+
+    .portrait-showcase {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: clamp(32px, 5vw, 56px);
+      align-items: center;
+    }
+
+    @media (min-width: 860px) {
+      .portrait-showcase {
+        grid-template-columns: minmax(0, 410px) minmax(0, 1fr);
+      }
+    }
+
+    .portrait-stage {
+      width: min(410px, 100%);
+      margin-inline: auto;
+    }
+
+    .portrait-card {
+      perspective: 1400px;
+    }
+
+    .portrait-card-inner {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      transform-style: preserve-3d;
+      transition: transform 0.8s var(--ease-out);
+      cursor: pointer;
+    }
+
+    .portrait-card.is-flipped .portrait-card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .portrait-face {
+      position: absolute;
+      inset: 0;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      border-radius: var(--radius-md);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+    }
+
+    .portrait-front {
+      display: flex;
+      flex-direction: column;
+      padding: 14px 14px 16px;
+    }
+
+    .portrait-frame {
+      position: relative;
+      flex: 1;
+      border-radius: calc(var(--radius-sm) + 2px);
+      overflow: hidden;
+      background: var(--bg-subtle);
+    }
+
+    .portrait-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 55%;
+      transition: transform 0.7s var(--ease-out);
+    }
+
+    .portrait-card-inner:hover .portrait-frame img {
+      transform: scale(1.03);
+    }
+
+    .portrait-fallback {
+      position: absolute;
+      inset: 0;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 24px;
+      background: var(--bg-subtle);
+      color: var(--text-secondary);
+      gap: 10px;
+    }
+
+    .portrait-fallback.is-visible {
+      display: flex;
+    }
+
+    .portrait-fallback-frame {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      border: 1px dashed var(--border-strong);
+      display: grid;
+      place-items: center;
+      font-family: var(--font-serif);
+      color: var(--accent);
+      font-size: 0.95rem;
+    }
+
+    .portrait-fallback strong {
+      font-family: var(--font-serif);
+      font-size: 1.02rem;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    .portrait-fallback p {
+      font-size: 0.84rem;
+      line-height: 1.65;
+      max-width: 280px;
+    }
+
+    .portrait-fallback code {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1px 6px;
+      font-size: 0.8rem;
+      color: var(--accent);
+    }
+
+    .portrait-front-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 4px 0;
+    }
+
+    .portrait-front-caption {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 0.92rem;
+      color: var(--text-primary);
+    }
+
+    .portrait-front-tag {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .portrait-back {
+      transform: rotateY(180deg);
+      padding: 32px 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: linear-gradient(180deg, #FFFEFC 0%, #FAF5EC 100%);
+    }
+
+    .portrait-back-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .portrait-back-accent {
+      width: 36px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    .portrait-secret-note {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(1.06rem, 2.5vw, 1.24rem);
+      line-height: 1.82;
+      color: var(--text-primary);
+      margin-block: 20px;
+    }
+
+    .portrait-back-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .portrait-back-sign {
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: var(--accent);
+      font-size: 0.92rem;
+    }
+
+    .portrait-controls {
+      margin-top: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .portrait-editorial {
+      max-width: 540px;
+    }
+
+    .portrait-date-pill {
+      display: inline-block;
+      margin-bottom: 18px;
+      padding: 5px 14px;
+      border-radius: var(--radius-pill);
+      background: var(--champagne-soft);
+      border: 1px solid var(--border);
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+    }
+
+    .portrait-editorial-quote {
+      font-family: var(--font-serif);
+      font-size: clamp(1.45rem, 3.2vw, 1.9rem);
+      font-weight: 500;
+      line-height: 1.38;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+    }
+
+    .portrait-editorial-body {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .portrait-editorial-body p {
+      font-size: 0.96rem;
+      color: var(--text-secondary);
+      line-height: 1.84;
+    }
+
+    .portrait-tip {
+      padding: 14px 16px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-subtle);
+      border-left: 2px solid var(--champagne);
+      font-size: 0.86rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    .progress-wrap {
+      margin-top: 22px;
+      max-width: 340px;
+    }
+
+    .progress-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+
+    .progress-head strong {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 6px;
+      border-radius: var(--radius-pill);
+      background: var(--border);
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      border-radius: var(--radius-pill);
+      background: linear-gradient(90deg, var(--champagne) 0%, var(--accent) 100%);
+      transition: width 0.55s var(--ease-out);
+    }
+
+    .surprises-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    @media (min-width: 768px) {
+      .surprises-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    .surprise-card {
+      position: relative;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 28px 24px;
+      min-height: 244px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: left;
+      cursor: pointer;
+      overflow: hidden;
+      box-shadow: var(--shadow-xs);
+      transition: transform 0.35s var(--ease-out), border-color 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .surprise-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--border-strong);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .surprise-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(115deg, transparent 20%, rgba(200, 169, 126, 0.25) 50%, transparent 80%);
+      transform: translateX(-125%);
+      pointer-events: none;
+    }
+
+    .surprise-card.is-opened::after {
+      animation: cardSheen 0.85s var(--ease-out) forwards;
+    }
+
+    @keyframes cardSheen {
+      to { transform: translateX(125%); }
+    }
+
+    .surprise-card.is-opened {
+      border-color: rgba(184, 93, 93, 0.36);
+      background: linear-gradient(180deg, #FFFFFF 0%, #FCF9F4 100%);
+      cursor: default;
+    }
+
+    .surprise-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .surprise-num {
+      font-family: var(--font-serif);
+      font-size: 0.92rem;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+    }
+
+    .surprise-tag {
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .surprise-card.is-opened .surprise-tag {
+      color: var(--accent);
+    }
+
+    .surprise-cover-title {
+      font-family: var(--font-serif);
+      font-size: 1.18rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .surprise-cover-sub {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    .surprise-card.is-opened .surprise-cover {
+      display: none;
+    }
+
+    .surprise-body {
+      display: none;
+      animation: fadeUp 0.55s var(--ease-out) both;
+    }
+
+    .surprise-card.is-opened .surprise-body {
+      display: block;
+    }
+
+    .surprise-body h3 {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-weight: 500;
+      line-height: 1.35;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+    }
+
+    .surprise-body p {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      line-height: 1.72;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+  
+    .secret-letter-wrap {
+      display: grid;
+      grid-template-rows: 0fr;
+      opacity: 0;
+      margin-top: 0;
+      transition: grid-template-rows 0.8s var(--ease-out), opacity 0.8s var(--ease-out), margin-top 0.6s var(--ease-out);
+    }
+
+    .secret-letter-wrap.is-unlocked {
+      grid-template-rows: 1fr;
+      opacity: 1;
+      margin-top: 36px;
+    }
+
+    .secret-letter-inner {
+      overflow: hidden;
+    }
+
+    .secret-letter {
+      background: var(--bg-card);
+      border: 1px solid var(--border-strong);
+      border-top: 3px solid var(--accent);
+      border-radius: var(--radius-md);
+      padding: clamp(26px, 5vw, 46px);
+      max-width: 740px;
+      margin-inline: auto;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .secret-letter-kicker {
+      display: block;
+      font-size: 0.74rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .secret-letter h3 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.32rem, 3.2vw, 1.7rem);
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+    }
+
+    .secret-letter-paragraphs {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-bottom: 24px;
+    }
+
+    .secret-letter-paragraphs p {
+      font-size: 0.99rem;
+      line-height: 1.9;
+      color: var(--text-secondary);
+    }
+
+    .secret-letter-sign {
+      font-family: var(--font-serif);
+      font-style: italic;
+      text-align: right;
+      color: var(--text-primary);
+    }
+
+    .confession-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: clamp(32px, 6vw, 58px) clamp(20px, 4vw, 44px);
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .confession-question {
+      font-family: var(--font-serif);
+      font-size: clamp(1.85rem, 5vw, 2.75rem);
+      font-weight: 500;
+      line-height: 1.24;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+    }
+
+    .confession-sub {
+      max-width: 500px;
+      margin: 0 auto 12px;
+      font-size: 0.96rem;
+      color: var(--text-secondary);
+    }
+
+    .confession-note {
+      min-height: 26px;
+      font-size: 0.89rem;
+      font-style: italic;
+      color: var(--accent);
+      margin-bottom: 22px;
+    }
+
+    .choice-arena {
+      position: relative;
+      width: 100%;
+      max-width: 560px;
+      min-height: 184px;
+      margin: 0 auto;
+      padding: 20px;
+      border-radius: var(--radius-md);
+      background: var(--bg-paper);
+      border: 1px dashed var(--border-strong);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      overflow: hidden;
+    }
+
+    #btn-accept {
+      --accept-scale: 1;
+      transform: scale(var(--accept-scale));
+      z-index: 3;
+      min-width: 148px;
+      transition: transform 0.35s var(--ease-out), background-color 0.24s ease, box-shadow 0.24s ease;
+    }
+
+    #btn-hesitate {
+      z-index: 4;
+      white-space: nowrap;
+      transition: left 0.26s var(--ease-out), top 0.26s var(--ease-out), border-color 0.2s ease, background-color 0.2s ease;
+    }
+
+    #btn-hesitate.is-evading {
+      position: absolute;
+      margin: 0;
+    }
+
+    .accepted-banner {
+      display: none;
+      margin-top: 24px;
+      padding: 22px 20px;
+      border-radius: var(--radius-md);
+      background: var(--accent-soft);
+      border: 1px solid rgba(184, 93, 93, 0.25);
+      animation: fadeUp 0.6s var(--ease-out) both;
+    }
+
+    .accepted-banner.is-visible {
+      display: block;
+    }
+
+    .accepted-banner h3 {
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .accepted-banner p {
+      font-size: 0.94rem;
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+    }
+
+    .reply-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: clamp(24px, 5vw, 46px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .form-field {
+      margin-bottom: 24px;
+    }
+
+    .field-label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+    }
+
+    .idea-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    @media (min-width: 520px) {
+      .idea-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    .idea-item {
+      position: relative;
+    }
+
+    .idea-item input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .idea-box {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 2px;
+      padding: 14px 16px;
+      min-height: 68px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--bg-paper);
+      cursor: pointer;
+      transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .idea-box strong {
+      font-size: 0.94rem;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    .idea-box span {
+      font-size: 0.79rem;
+      color: var(--text-muted);
+    }
+
+    .idea-item input:checked + .idea-box {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      box-shadow: inset 0 0 0 1px var(--accent);
+    }
+
+    .idea-item input:focus-visible + .idea-box {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .custom-idea-wrap {
+      display: none;
+      margin-top: 12px;
+    }
+
+    .custom-idea-wrap.is-visible {
+      display: block;
+      animation: fadeUp 0.3s var(--ease-out) both;
+    }
+
+    .datetime-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    @media (min-width: 520px) {
+      .datetime-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .input-control,
+    .textarea-control {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-strong);
+      background: var(--bg-card);
+      font-size: 0.94rem;
+      color: var(--text-primary);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .input-control:focus,
+    .textarea-control:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(184, 93, 93, 0.12);
+    }
+
+    .textarea-control {
+      min-height: 110px;
+      resize: vertical;
+      line-height: 1.65;
+    }
+
+    .field-error {
+      display: none;
+      font-size: 0.82rem;
+      color: var(--accent);
+      margin-top: 6px;
+    }
+
+    .field-error.is-visible {
+      display: block;
+    }
+
+    .form-submit-row {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .form-submit-row .btn {
+      width: 100%;
+    }
+
+    @media (min-width: 520px) {
+      .form-submit-row .btn {
+        width: auto;
+        min-width: 220px;
+      }
+    }
+
+    .pass-wrapper {
+      display: none;
+      animation: fadeUp 0.6s var(--ease-out) both;
+    }
+
+    .pass-wrapper.is-visible {
+      display: block;
+    }
+
+    .date-pass {
+      background: #FFFEFC;
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .pass-header {
+      background: var(--text-primary);
+      color: #FAF7F2;
+      padding: 16px 24px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .pass-header-title {
+      font-size: 0.74rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    .pass-badge {
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(200, 169, 126, 0.55);
+      color: #EFE2CC;
+    }
+
+    .pass-body {
+      padding: clamp(22px, 4vw, 32px);
+    }
+
+    .pass-couple-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      padding-bottom: 20px;
+      border-bottom: 1px dashed var(--border-strong);
+      margin-bottom: 20px;
+    }
+
+    .pass-couple-names {
+      font-family: var(--font-serif);
+      font-size: clamp(1.42rem, 4vw, 1.88rem);
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    .pass-couple-amp {
+      color: var(--accent);
+      font-style: italic;
+      padding-inline: 6px;
+    }
+
+    .pass-serial {
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .pass-meta-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    @media (min-width: 520px) {
+      .pass-meta-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    .pass-meta-cell small {
+      display: block;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .pass-meta-cell strong {
+      font-size: 0.94rem;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    .pass-note-block {
+      background: var(--bg-paper);
+      border-left: 2.5px solid var(--accent);
+      padding: 14px 16px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      margin-bottom: 20px;
+    }
+
+    .pass-note-block small {
+      display: block;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .pass-note-block p {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 0.98rem;
+      color: var(--text-primary);
+    }
+
+    .pass-barcode {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      font-size: 0.74rem;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+    }
+
+    .barcode-stripes {
+      height: 22px;
+      width: 112px;
+      opacity: 0.52;
+      background: repeating-linear-gradient(
+        90deg,
+        var(--text-primary) 0 2px,
+        transparent 2px 5px,
+        var(--text-primary) 5px 6px,
+        transparent 6px 9px,
+        var(--text-primary) 9px 12px,
+        transparent 12px 15px
+      );
+    }
+
+    .pass-status {
+      margin-top: 16px;
+      text-align: center;
+      font-size: 0.86rem;
+      color: var(--text-secondary);
+    }
+
+    .pass-actions {
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 120;
+      background: rgba(24, 23, 21, 0.85);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.28s ease, visibility 0.28s ease;
+    }
+
+    .lightbox.is-open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .lightbox-panel {
+      position: relative;
+      width: min(760px, 100%);
+      max-height: 92vh;
+      background: var(--bg-card);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 28px 70px rgba(0, 0, 0, 0.42);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      z-index: 5;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.95);
+      color: var(--text-primary);
+      font-size: 1.15rem;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+    }
+
+    .lightbox-media {
+      background: var(--bg-subtle);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 240px;
+      max-height: 66vh;
+      position: relative;
+    }
+
+    .lightbox-media img {
+      max-height: 66vh;
+      width: auto;
+      max-width: 100%;
+      object-fit: contain;
+    }
+
+    .lightbox-details {
+      padding: 16px 6px 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .lightbox-head-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .lightbox-details h3 {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+
+    .lightbox-date {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .lightbox-details p {
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+      line-height: 1.72;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      z-index: 150;
+      transform: translate(-50%, 16px);
+      opacity: 0;
+      visibility: hidden;
+      background: var(--text-primary);
+      color: #FAF7F2;
+      padding: 11px 20px;
+      border-radius: var(--radius-pill);
+      font-size: 0.86rem;
+      font-weight: 500;
+      max-width: min(420px, 90vw);
+      text-align: center;
+      box-shadow: 0 12px 30px rgba(30, 29, 27, 0.24);
+      transition: opacity 0.28s ease, transform 0.28s ease, visibility 0.28s ease;
+    }
+
+    .toast.is-shown {
+      opacity: 1;
+      visibility: visible;
+      transform: translate(-50%, 0);
+    }
+
+    footer.site-footer {
+      padding: 40px 0 56px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: 0.84rem;
+      color: var(--text-muted);
+    }
+
+    footer.site-footer p + p {
+      margin-top: 4px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+
+<body class="note-locked">
+
+  <canvas id="bg-canvas" class="canvas-layer" aria-hidden="true"></canvas>
+  <canvas id="fx-canvas" class="canvas-layer" aria-hidden="true"></canvas>
+
+  <div id="sealed-overlay" class="sealed-overlay" role="dialog" aria-modal="true" aria-label="Tấm thiệp niêm phong gửi chị Ngọc Mai">
+    <div id="sealed-kicker" class="sealed-kicker">Gửi riêng một người</div>
+
+    <div id="envelope-wrap" class="envelope-wrap" role="button" tabindex="0" aria-label="Bấm để mở thiệp">
+      <div class="envelope-card">
+        <div class="envelope-inner-sheet" aria-hidden="true">
+          <span id="envelope-sheet-title">Gửi chị Ngọc Mai,</span>
+          <div class="sheet-rule"></div>
+          <div class="sheet-bar"></div>
+          <div class="sheet-bar short"></div>
+        </div>
+        <div class="env-fold-left" aria-hidden="true"></div>
+        <div class="env-fold-right" aria-hidden="true"></div>
+        <div class="env-fold-bottom" aria-hidden="true"></div>
+      </div>
+      <div class="env-flap" aria-hidden="true"></div>
+      <div class="wax-seal" id="wax-monogram" aria-hidden="true">NM</div>
+    </div>
+
+    <div class="sealed-copy">
+      <h1 id="sealed-title">Gửi chị Ngọc Mai</h1>
+      <p id="sealed-desc"></p>
+
+      <div class="sealed-actions">
+        <button type="button" id="btn-open-note" class="btn btn-primary">Mở thiệp</button>
+      </div>
+    </div>
+  </div>
+
+  <nav class="top-nav" aria-label="Điều hướng chính">
+    <div class="top-nav-inner">
+      <a href="#top" id="nav-brand" class="nav-brand">Gửi chị Ngọc Mai</a>
+
+      <ul class="nav-links">
+        <li><a href="#portrait">Khoảnh khắc</a></li>
+        <li><a href="#surprises">Ba điều nhỏ</a></li>
+        <li><a href="#confession">Lời ngỏ</a></li>
+        <li><a href="#reply">Hẹn gặp</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="page-shell">
+    <!-- SECTION 1 — LỜI MỞ ĐẦU (HERO) -->
+    <header class="hero" id="top">
+      <div class="container">
+        <div class="hero-card reveal">
+          <div class="hero-meta">
+            <span id="hero-meta-label">Ghi chép nhỏ</span>
+            <span id="hero-date-label"></span>
+          </div>
+
+          <h2 id="hero-greeting" class="hero-greeting"></h2>
+
+          <div class="typewriter-area" aria-live="polite">
+            <span id="typewriter-output"></span><span id="typewriter-cursor" class="typewriter-cursor" aria-hidden="true"></span>
+          </div>
+
+          <div id="hero-paragraphs" class="hero-paragraphs">
+            <!-- Các đoạn văn mở đầu được tự động lấy từ SITE_CONFIG.hero.paragraphs -->
+          </div>
+
+          <div class="hero-footer">
+            <span id="hero-sign" class="hero-sign"></span>
+            <button type="button" id="btn-replay-hero" class="btn btn-ghost">Chạy lại lời chào</button>
+          </div>
+        </div>
+
+        <div class="scroll-cue-wrap">
+          <a href="#portrait" class="scroll-cue" aria-label="Cuộn xuống xem bức ảnh">
+            <span>Cuộn xuống</span>
+            <span class="scroll-cue-line" aria-hidden="true"></span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <div class="section-divider" aria-hidden="true"></div>
+
+    <main>
+      <!-- SECTION 2 — KHUNG ẢNH DUY NHẤT CỦA CHỊ NGỌC MAI (TỈ LỆ 3:4 LẬT 3D) -->
+      <section id="portrait" aria-labelledby="portrait-heading">
+        <div class="container">
+          <div class="portrait-showcase">
+            <!-- Khung chân dung 3:4 lật 3D -->
+            <div class="portrait-stage reveal">
+              <div id="portrait-card" class="portrait-card">
+                <div
+                  id="portrait-card-inner"
+                  class="portrait-card-inner"
+                  role="button"
+                  tabindex="0"
+                  aria-label="Bấm để lật mặt sau đọc lời nhắn ngắn"
+                >
+                  <!-- Mặt trước: Ảnh duy nhất của chị Ngọc Mai -->
+                  <div class="portrait-face portrait-front">
+                    <div class="portrait-frame">
+                      <img
+                        id="her-photo-img"
+                        src=""
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                      />
+                      <!-- Fallback gọn gàng khi không tìm thấy tệp ảnh offline -->
+                      <div id="her-photo-fallback" class="portrait-fallback" role="status">
+                        <div class="portrait-fallback-frame" aria-hidden="true">01</div>
+                        <strong>Chưa tìm thấy tệp ảnh</strong>
+                        <p>
+                          Hãy đặt tệp <code>ngocmai.jpg</code> vào cùng thư mục với tệp <code>index.html</code> (hoặc kiểm tra lại <code>SITE_CONFIG.herPhoto.src</code>).
+                        </p>
+                      </div>
+                    </div>
+                    <div class="portrait-front-footer">
+                      <span id="portrait-front-caption" class="portrait-front-caption"></span>
+                      <span class="portrait-front-tag">01 / 01</span>
+                    </div>
+                  </div>
+
+                  <div class="portrait-face portrait-back">
+                    <div class="portrait-back-top">
+                      <span>Mặt sau bức ảnh</span>
+                      <span class="portrait-back-accent" aria-hidden="true"></span>
+                    </div>
+                    <p id="portrait-secret-note" class="portrait-secret-note"></p>
+                    <div class="portrait-back-bottom">
+                      <span>Bấm để lật lại ảnh</span>
+                      <span id="portrait-back-sign" class="portrait-back-sign"></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="portrait-controls">
+                <button type="button" id="btn-flip-portrait" class="btn btn-subtle">Lật mặt sau</button>
+                <button type="button" id="btn-open-lightbox" class="btn btn-subtle">Xem ảnh lớn</button>
+              </div>
+            </div>
+
+            <div class="portrait-editorial reveal">
+              <span id="portrait-eyebrow" class="section-kicker"></span>
+              <h2 id="portrait-heading" class="section-title"></h2>
+              <span id="portrait-date-pill" class="portrait-date-pill"></span>
+              <p id="portrait-editorial-quote" class="portrait-editorial-quote"></p>
+              <div id="portrait-side-paragraphs" class="portrait-editorial-body">
+                <!-- Các đoạn văn bên cạnh ảnh được lấy từ SITE_CONFIG.herPhoto.sideParagraphs -->
+              </div>
+              <div class="portrait-tip">
+                <span id="portrait-tip-text"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider" aria-hidden="true"></div>
+
+      <section id="surprises" aria-labelledby="surprises-heading">
+        <div class="container">
+          <div class="section-head reveal">
+            <span id="surprises-kicker" class="section-kicker"></span>
+            <h2 id="surprises-heading" class="section-title"></h2>
+            <p id="surprises-desc" class="section-desc"></p>
+
+            <div class="progress-wrap" aria-live="polite">
+              <div class="progress-head">
+                <span id="progress-label">Đã mở 0 / 3 điều nhỏ</span>
+                <strong id="progress-counter">0 / 3</strong>
+              </div>
+              <div class="progress-track" aria-hidden="true">
+                <div id="progress-fill" class="progress-fill"></div>
+              </div>
+            </div>
+          </div>
+
+          <div id="surprises-grid" class="surprises-grid">
+            <!-- 3 thẻ bất ngờ được tạo từ SITE_CONFIG.surprises.items -->
+          </div>
+
+          <!-- Bức thư ngắn mở khoá khi mở đủ 3 thẻ -->
+          <div id="secret-letter-wrap" class="secret-letter-wrap" aria-live="polite">
+            <div class="secret-letter-inner">
+              <article class="secret-letter">
+                <span id="secret-letter-kicker" class="secret-letter-kicker"></span>
+                <h3 id="secret-letter-title"></h3>
+                <div id="secret-letter-paragraphs" class="secret-letter-paragraphs">
+                  <!-- Các đoạn thư được lấy từ SITE_CONFIG.secretLetter.paragraphs -->
+                </div>
+                <p id="secret-letter-sign" class="secret-letter-sign"></p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider" aria-hidden="true"></div>
+
+      <section id="confession" aria-labelledby="confession-heading">
+        <div class="container-narrow">
+          <div class="confession-card reveal">
+            <span id="confession-kicker" class="section-kicker"></span>
+            <h2 id="confession-heading" class="confession-question"></h2>
+            <p id="confession-sub" class="confession-sub"></p>
+            <p id="confession-note" class="confession-note" aria-live="polite"></p>
+
+            <div id="choice-arena" class="choice-arena">
+              <button type="button" id="btn-accept" class="btn btn-primary"></button>
+              <button type="button" id="btn-hesitate" class="btn btn-outline"></button>
+            </div>
+
+            <div id="accepted-banner" class="accepted-banner" aria-live="polite">
+              <h3 id="accepted-title"></h3>
+              <p id="accepted-desc"></p>
+              <a href="#reply" id="accepted-cta" class="btn btn-primary"></a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="section-divider" aria-hidden="true"></div>
+
+      <section id="reply" aria-labelledby="reply-heading">
+        <div class="container-narrow">
+          <div class="section-head is-centered reveal">
+            <span id="reply-kicker" class="section-kicker"></span>
+            <h2 id="reply-heading" class="section-title"></h2>
+            <p id="reply-desc" class="section-desc"></p>
+          </div>
+
+          <div class="reply-card reveal">
+            <form id="reply-form" novalidate>
+              <!-- Gợi ý buổi hẹn lấy động từ SITE_CONFIG.datePlan.dateOptions -->
+              <div class="form-field">
+                <span id="reply-idea-label" class="field-label"></span>
+                <div class="idea-grid" id="idea-grid"></div>
+
+                <!-- Ô nhập hiện ra khi chị chọn "Chị tự chọn địa điểm" -->
+                <div id="custom-idea-wrap" class="custom-idea-wrap">
+                  <input
+                    type="text"
+                    id="custom-idea-input"
+                    class="input-control"
+                    maxlength="120"
+                  />
+                </div>
+                <p id="err-idea" class="field-error">Chị chọn một gợi ý buổi hẹn giúp em nhé.</p>
+              </div>
+
+              <!-- Ngày & khung giờ rảnh -->
+              <div class="form-field">
+                <span id="reply-time-label" class="field-label"></span>
+                <div class="datetime-grid">
+                  <input type="date" id="reply-date" class="input-control" aria-label="Ngày chị rảnh" />
+                  <input type="time" id="reply-time" class="input-control" value="19:00" aria-label="Giờ dự kiến" />
+                </div>
+              </div>
+
+              <!-- Lời nhắn chị gửi lại cho em -->
+              <div class="form-field">
+                <label class="field-label" id="reply-message-label" for="reply-message"></label>
+                <textarea
+                  id="reply-message"
+                  class="textarea-control"
+                  maxlength="500"
+                ></textarea>
+                <p id="err-message" class="field-error">Chị viết giúp em ít nhất một dòng ngắn nhé.</p>
+              </div>
+
+              <div class="form-submit-row">
+                <button type="submit" id="btn-submit-reply" class="btn btn-primary"></button>
+              </div>
+            </form>
+
+            <div id="pass-wrapper" class="pass-wrapper" aria-live="polite">
+              <article class="date-pass" aria-label="Thẻ hẹn hò chính thức">
+                <div class="pass-header">
+                  <span id="pass-header-title" class="pass-header-title"></span>
+                  <span id="pass-badge" class="pass-badge"></span>
+                </div>
+
+                <div class="pass-body">
+                  <div class="pass-couple-row">
+                    <div class="pass-couple-names">
+                      <span id="pass-recipient"></span>
+                      <span class="pass-couple-amp">&amp;</span>
+                      <span id="pass-sender"></span>
+                    </div>
+                    <span id="pass-serial" class="pass-serial">NO. 2026-001</span>
+                  </div>
+
+                  <div class="pass-meta-grid">
+                    <div class="pass-meta-cell">
+                      <small>Buổi hẹn</small>
+                      <strong id="pass-idea">—</strong>
+                    </div>
+                    <div class="pass-meta-cell">
+                      <small>Thời gian</small>
+                      <strong id="pass-datetime">—</strong>
+                    </div>
+                    <div class="pass-meta-cell">
+                      <small>Ghi chú</small>
+                      <strong id="pass-note-short"></strong>
+                    </div>
+                  </div>
+
+                  <div class="pass-note-block">
+                    <small id="pass-message-label"></small>
+                    <p id="pass-message"></p>
+                  </div>
+
+                  <div class="pass-barcode">
+                    <span>ADMIT TWO · RESERVED</span>
+                    <div class="barcode-stripes" aria-hidden="true"></div>
+                  </div>
+                </div>
+              </article>
+
+              <p id="pass-status" class="pass-status"></p>
+
+              <div class="pass-actions">
+                <button type="button" id="btn-copy-reply" class="btn btn-primary"></button>
+                <button type="button" id="btn-edit-reply" class="btn btn-outline">Chỉnh sửa lại</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p id="footer-line"></p>
+        <p id="footer-year"></p>
+      </div>
+    </footer>
+  </div>
+
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Xem ảnh lớn của chị Ngọc Mai">
+    <div class="lightbox-panel">
+      <button type="button" id="lightbox-close" class="lightbox-close" aria-label="Đóng xem ảnh">×</button>
+      <div class="lightbox-media">
+        <img id="lightbox-img" src="" alt="" />
+        <div id="lightbox-fallback" class="portrait-fallback" role="status">
+          <div class="portrait-fallback-frame" aria-hidden="true">01</div>
+          <strong>Không tải được ảnh</strong>
+          <p>
+            Hãy đặt tệp <code>ngocmai.jpg</code> cùng thư mục với <code>index.html</code> hoặc kiểm tra lại <code>SITE_CONFIG.herPhoto.src</code>.
+          </p>
+        </div>
+      </div>
+      <div class="lightbox-details">
+        <div class="lightbox-head-row">
+          <h3 id="lightbox-caption"></h3>
+          <span id="lightbox-date" class="lightbox-date"></span>
+        </div>
+        <p id="lightbox-note"></p>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script>
+
+    const SITE_CONFIG = {
+      // 1. THÔNG TIN CHUNG
+      recipientName: "chị Ngọc Mai",        
+      shortRecipientName: "Ngọc Mai",       
+      displayRecipientPass: "Chị Ngọc Mai", 
+      senderName: "Hoàng Tiến Đạt",        
+      waxMonogram: "NM",                  
+      pageTitle: "Gửi chị Ngọc Mai",
+      footerNote: "Viết riêng gửi chị Ngọc Mai — từ Hoàng Tiến Đạt.",
+
+      // 2. ẢNH CỦA CHỊ NGỌC MAI
+      herPhoto: {
+        src: "ngocmai.jpg",                
+        alt: "Chị Ngọc Mai",
+        caption: "Khoảnh khắc rất tự nhiên của chị.",
+        dateLabel: "Một buổi tối thật dễ thương",
+
+      
+        sideEyebrow: "01 / Một bức ảnh em giữ lại",
+        sideTitle: "Một khung hình rất đáng nhớ",
+        sideParagraphs: [
+          "Em giữ lại bức ảnh này vì trông chị vừa tự nhiên, vừa có nét gì đó rất dễ mến và gần gũi.",
+          "Đôi khi không cần một khoảnh khắc quá cầu kỳ, chỉ cần nhìn thấy sự thoải mái của chị như lúc này là em đã thấy vui hơn hẳn rồi.",
+            "Em hy vọng sẽ có thêm nhiều dịp được trò chuyện và đi chơi cùng chị hơn nữa."
+        ],
+        tipText: "Chị bấm trực tiếp vào ảnh hoặc nút Lật mặt sau để xem vài dòng ngắn em ghi đằng sau tấm ảnh này nhé.",
+        backNote: "Cảm ơn chị vì lúc nào cũng mang lại cảm giác ấm áp và dễ chịu mỗi khi ở cạnh. Hy vọng từ sau hôm nay, em sẽ có thêm nhiều dịp đi cùng chị hơn nữa."
+      },
+
+      // 3. MÀN HÌNH MỞ THIỆP
+      sealedNote: {
+        kicker: "Gửi riêng một người",
+        title: "Gửi chị Ngọc Mai",
+        envelopeSheetLabel: "Gửi chị Ngọc Mai,",
+        description: "Em có vài điều muốn nói với chị một cách nghiêm túc, nhưng lại hơi ngại nói thẳng ngay lúc đầu.",
+        buttonLabel: "Mở thiệp"
+      },
+
+      // 4. PHẦN MỞ ĐẦU (HERO)
+      hero: {
+        metaLabel: "Ghi chép nhỏ",
+        greetingPrefix: "Gửi",
+        // Các dòng chạy hiệu ứng gõ máy lần lượt (dễ thêm/bớt dòng)
+        typewriterLines: [
+          "Hiluu chị Ngọc Mai,",
+          "Cảm ơn chị vì đã dành chút thời gian mở trang này.",
+        ],
+        // Các đoạn văn mở đầu ngay bên dưới (mỗi phần tử trong mảng là 1 đoạn văn riêng)
+        paragraphs: [
+          "Mặc dù cũng chỉ mới gặp được có mấy lần nhưng em có thể chắc chắn với mắt nhìn người của em, em thích cảm giác có chị ở bên và có chị quan tâm, em đều cảm thấy mọi thứ nhẹ nhàng và vui hơn bình thường rất nhiều.",
+          "Em không giỏi nói những câu quá hoa mỹ, nên em chọn cách viết gọn gàng ở đây để gửi đến chị một cách rõ ràng, tôn trọng và chân thành nhất.",
+          "Chị cứ đọc chậm rãi từng phần bên dưới nhé, không cần vội đâu ạ."
+        ],
+        signaturePrefix: "—",
+        replayButtonLabel: "Chạy lại lời chào"
+      },
+
+      // 6. 3 THẺ BẤT NGỜ
+      surprises: {
+        kicker: "02 / Ba điều nhỏ dành cho chị",
+        title: "Vài điều em muốn gửi đến chị",
+        description: "Không phải điều gì quá lớn lao, chỉ là ba điều nhỏ em thật lòng nghĩ về chị. Chị mở đủ cả ba thẻ sẽ có thêm một bức thư ngắn hiện ra ở bên dưới.",
+        coverSubtitle: "Chạm để mở một điều nhỏ em viết cho chị.",
+        items: [
+          {
+            id: "01",
+            coverTitle: "Điều số 01",
+            title: "Điều em ấn tượng nhất ở chị",
+            description: "Cách chị nói chuyện vừa dịu dàng vừa rõ ràng. Ở chị luôn có sự tinh tế và chân thành khiến người đối diện cảm thấy được tôn trọng."
+          },
+          {
+            id: "02",
+            coverTitle: "Điều số 02",
+            title: "Lý do em luôn thấy thoải mái bên chị",
+            description: "Khi nói chuyện với chị, em không cần phải cố tỏ ra khác đi. Những câu chuyện bình thường nhất cũng trở nên thú vị hơn khi có chị lắng nghe."
+          },
+          {
+            id: "03",
+            coverTitle: "Điều số 03",
+            title: "Một lời hứa nhỏ dành cho chị",
+            description: "Nếu chị cho em cơ hội, em hứa sẽ luôn kiên nhẫn, chân thành và để ý đến những điều nhỏ nhặt làm chị vui — bắt đầu từ những buổi hẹn thật chỉn chu."
+          }
+        ]
+      },
+
+      // 7. BỨC THƯ NGẮN MỞ KHOÁ (Tự mở khi chị bấm đủ 3 thẻ trên)
+      secretLetter: {
+        kicker: "Bức thư ngắn đã mở khoá",
+        title: "Gửi chị Ngọc Mai,",
+        // Mỗi phần tử trong mảng paragraphs là 1 đoạn văn — bạn có thể thêm/xoá/sửa tuỳ ý
+        paragraphs: [
+          "Cảm ơn chị vì đã kiên nhẫn đọc đến tận đây. Em biết việc nói ra tình cảm của mình luôn cần sự nghiêm túc, nhất là khi gửi đến một người em rất trân trọng như chị.",
+          "Em không dám hứa những điều quá xa xôi, nhưng em có thể chắc chắn rằng tình cảm em dành cho chị là thật lòng. Em sẽ luôn sẵn sàng có mặt lúc chị cần em. Em muốn được lắng nghe chị nhiều hơn, cùng chị đi ăn những món chị thích, và ở bên chăm sóc chị mỗi khi chị mệt.",
+          "Dù câu trả lời của chị ra sao, em vẫn rất quý khoảng thời gian hai chị em mình đã trò chuyện cùng nhau. Nhưng thật lòng mà nói, em vẫn mong mình có thể bước tiếp cùng nhau ở một vai trò đặc biệt hơn."
+        ],
+        signature: "— Em, Hoàng Tiến Đạt"
+      },
+
+      // 8. PHẦN TỎ TÌNH & CÂU TRÊU NÚT NÉ
+      confession: {
+        kicker: "03 / Lời ngỏ",
+        question: "Chị Ngọc Mai ơi, chị cho em cơ hội được tìm hiểu và ở bên chăm sóc chị nhé?",
+        subtitle: "Em hỏi hoàn toàn nghiêm túc ạ. Mong là chị sẽ cho em một cơ hội nhỏ.",
+        acceptButtonLabel: "Chị đồng ý",
+        acceptedButtonLabel: "Chị đã đồng ý",
+        hesitateButtonLabel: "Để chị suy nghĩ thêm",
+        acceptedNote: "Cảm ơn chị Ngọc Mai rất nhiều vì đã cho em cơ hội này.",
+        acceptedBannerTitle: "Cảm ơn chị đã đồng ý ạ.",
+        acceptedBannerDesc: "Em vui thật sự luôn. Chị chọn giúp em một buổi hẹn đầu tiên ở phần ngay bên dưới để em sắp xếp lịch đón chị nhé.",
+        acceptedBannerCta: "Chọn buổi hẹn đầu tiên",
+        // Các câu ngắn dí dỏm lễ phép hiện ra mỗi lần nút "Để chị suy nghĩ thêm" né
+        dodgeMessages: [
+          "Chị thử nghĩ lại thêm một chút nữa được không ạ?",
+          "Nút này hơi ngại đứng yên, chị bấm nút bên cạnh thử xem.",
+          "Em kiên nhẫn chờ được, nhưng mà em vẫn mong chị đồng ý hơn.",
+          "Chị bấm nút kia đi, em mời chị đi cà phê ngay."
+        ]
+      },
+
+      // 9. LỰA CHỌN HẸN HÒ & THẺ HẸN HÒ
+      datePlan: {
+        kicker: "04 / Buổi hẹn đầu tiên",
+        title: "Mình hẹn nhau một buổi nhé chị",
+        description: "Chị chọn gợi ý chị thấy thoải mái nhất, khung giờ rảnh và nhắn lại cho em vài dòng nhé.",
+        ideaLabel: "Chị muốn buổi hẹn đầu tiên của mình là gì ạ?",
+        timeLabel: "Ngày và khung giờ chị rảnh",
+        messageLabel: "Lời nhắn chị gửi lại cho em",
+        messagePlaceholder: "Ví dụ: Tối thứ Bảy tuần này nhé, nhớ đến đón chị đúng giờ.",
+        customIdeaValue: "Chị tự chọn địa điểm",
+        customIdeaPlaceholder: "Chị muốn đi đâu hoặc làm gì ạ? (VD: Đi ăn lẩu, xem triển lãm, đi xem phim...)",
+        submitButtonLabel: "Xác nhận & Tạo thẻ hẹn hò",
+        passHeaderTitle: "Date Pass · First Official Date",
+        passBadge: "Đã xác nhận",
+        passShortNote: "Em qua đón chị tận nơi",
+        copyButtonLabel: "Sao chép hồi âm gửi em",
+        dateOptions: [
+          {
+            value: "Cà phê tối yên tĩnh",
+            title: "Cà phê tối yên tĩnh",
+            desc: "Ngồi quán nhẹ nhàng, trò chuyện thật thoải mái"
+          },
+          {
+            value: "Đi ăn món chị thích",
+            title: "Đi ăn món chị thích",
+            desc: "Chị chỉ cần chọn món, quán và đặt bàn để em lo"
+          },
+          {
+            value: "Đi dạo phố hóng gió",
+            title: "Đi dạo phố hóng gió",
+            desc: "Đi bộ thư giãn, ghé mua trà hoặc kem ven đường"
+          },
+          {
+            value: "Chị tự chọn địa điểm",
+            title: "Chị tự chọn địa điểm",
+            desc: "Ghi riêng nơi chị đang muốn ghé cùng em"
+          }
+        ]
+      },
+
+    
+      // Nếu để trống "", website vẫn hoạt động hoàn hảo và tạo Thẻ Hẹn Hò để chị sao chép gửi qua Messenger.
+      formspreeEndpoint: "https://formspree.io/f/mljbzzrg"
+    };
+
+    const state = {
+      openedSurprises: new Set(),
+      dodgeCount: 0,
+      accepted: false,
+      photoFailed: false,
+      typewriterTimer: null,
+      lastCopyMessage: ""
+    };
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function renderParagraphList(container, paragraphs) {
+      if (!container) return;
+      container.innerHTML = "";
+      (paragraphs || []).forEach((text) => {
+        const p = document.createElement("p");
+        p.textContent = text;
+        container.appendChild(p);
+      });
+    }
+
+    let toastTimer = null;
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      if (!toast) return;
+      toast.textContent = message;
+      toast.classList.add("is-shown");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toast.classList.remove("is-shown");
+      }, 3400);
+    }
+
+    function copyTextSafe(text) {
+      try {
+        const textarea = document.createElement("textarea");
+        textarea.value = text;
+        textarea.setAttribute("readonly", "");
+        textarea.style.position = "fixed";
+        textarea.style.top = "-9999px";
+        textarea.style.opacity = "0";
+        document.body.appendChild(textarea);
+        textarea.select();
+        textarea.setSelectionRange(0, text.length);
+        const copied = document.execCommand("copy");
+        document.body.removeChild(textarea);
+        return copied;
+      } catch (err) {
+        return false;
+      }
+    }
+
+    const CanvasFX = (() => {
+      let bgCanvas, bgCtx, fxCanvas, fxCtx;
+      let width = 0;
+      let height = 0;
+      let bgParticles = [];
+      let fxParticles = [];
+      let bgRafId = null;
+      let fxRafId = null;
+      let isPageHidden = false;
+
+      const PALETTE = ["#B85D5D", "#C8A97E", "#D9B99B", "#8F4A4A", "#EFE2CC"];
+
+      function resize() {
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        width = window.innerWidth;
+        height = window.innerHeight;
+
+        if (bgCanvas && bgCtx) {
+          bgCanvas.width = Math.floor(width * dpr);
+          bgCanvas.height = Math.floor(height * dpr);
+          bgCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        }
+
+        if (fxCanvas && fxCtx) {
+          fxCanvas.width = Math.floor(width * dpr);
+          fxCanvas.height = Math.floor(height * dpr);
+          fxCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        }
+      }
+
+      function seedAmbient() {
+        const count = width < 640 ? 16 : 26;
+        bgParticles = Array.from({ length: count }, () => ({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          r: 1.5 + Math.random() * 3.2,
+          vx: (Math.random() - 0.5) * 0.18,
+          vy: -0.12 - Math.random() * 0.22,
+          alpha: 0.1 + Math.random() * 0.16,
+          color: Math.random() > 0.45 ? "#C8A97E" : "#B85D5D"
+        }));
+      }
+
+      function renderAmbient() {
+        if (isPageHidden || !bgCtx) {
+          bgRafId = null;
+          return;
+        }
+        bgCtx.clearRect(0, 0, width, height);
+
+        for (let i = 0; i < bgParticles.length; i++) {
+          const p = bgParticles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+
+          if (p.y < -12) {
+            p.y = height + 12;
+            p.x = Math.random() * width;
+          }
+          if (p.x < -12) p.x = width + 12;
+          if (p.x > width + 12) p.x = -12;
+
+          bgCtx.globalAlpha = p.alpha;
+          bgCtx.fillStyle = p.color;
+          bgCtx.beginPath();
+          bgCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          bgCtx.fill();
+        }
+        bgCtx.globalAlpha = 1;
+        bgRafId = requestAnimationFrame(renderAmbient);
+      }
+
+      function spawnBurst(originX, originY, count, speedMax) {
+        if (prefersReducedMotion || !fxCtx) return;
+        for (let i = 0; i < count; i++) {
+          const angle = Math.random() * Math.PI * 2;
+          const speed = 1.6 + Math.random() * speedMax;
+          fxParticles.push({
+            x: originX,
+            y: originY,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed - 2.4,
+            w: 4 + Math.random() * 5,
+            h: 2.5 + Math.random() * 4,
+            rot: Math.random() * Math.PI * 2,
+            vRot: (Math.random() - 0.5) * 0.18,
+            life: 1,
+            decay: 0.011 + Math.random() * 0.01,
+            color: PALETTE[Math.floor(Math.random() * PALETTE.length)]
+          });
+        }
+        if (!fxRafId) {
+          fxRafId = requestAnimationFrame(renderFX);
+        }
+      }
+
+      function renderFX() {
+        if (!fxCtx) {
+          fxRafId = null;
+          return;
+        }
+        fxCtx.clearRect(0, 0, width, height);
+
+        for (let i = fxParticles.length - 1; i >= 0; i--) {
+          const p = fxParticles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += 0.11;
+          p.vx *= 0.99;
+          p.rot += p.vRot;
+          p.life -= p.decay;
+
+          if (p.life <= 0 || p.y > height + 24) {
+            fxParticles.splice(i, 1);
+            continue;
+          }
+
+          fxCtx.save();
+          fxCtx.globalAlpha = Math.max(0, p.life);
+          fxCtx.translate(p.x, p.y);
+          fxCtx.rotate(p.rot);
+          fxCtx.fillStyle = p.color;
+          fxCtx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+          fxCtx.restore();
+        }
+
+        if (fxParticles.length > 0 && !isPageHidden) {
+          fxRafId = requestAnimationFrame(renderFX);
+        } else {
+          fxCtx.clearRect(0, 0, width, height);
+          fxRafId = null;
+        }
+      }
+
+      function init() {
+        bgCanvas = document.getElementById("bg-canvas");
+        fxCanvas = document.getElementById("fx-canvas");
+        if (!bgCanvas || !fxCanvas) return;
+
+        bgCtx = bgCanvas.getContext("2d");
+        fxCtx = fxCanvas.getContext("2d");
+        resize();
+        seedAmbient();
+
+        if (!prefersReducedMotion) {
+          bgRafId = requestAnimationFrame(renderAmbient);
+        }
+
+        window.addEventListener("resize", () => {
+          resize();
+          seedAmbient();
+        });
+
+        document.addEventListener("visibilitychange", () => {
+          isPageHidden = document.hidden;
+          if (!isPageHidden && !prefersReducedMotion && !bgRafId) {
+            bgRafId = requestAnimationFrame(renderAmbient);
+          }
+        });
+      }
+
+      function miniBurst(x, y) {
+        spawnBurst(x, y, 22, 4.2);
+      }
+
+      function celebrate() {
+        spawnBurst(width * 0.28, height * 0.42, 42, 6.2);
+        spawnBurst(width * 0.72, height * 0.42, 42, 6.2);
+        setTimeout(() => {
+          spawnBurst(width * 0.5, height * 0.32, 36, 5.5);
+        }, 240);
+      }
+
+      return { init, miniBurst, celebrate };
+    })();
+
+    function bindStaticContent() {
+      const cfg = SITE_CONFIG;
+
+      // Tiêu đề trang & thanh điều hướng
+      document.title = cfg.pageTitle;
+      document.getElementById("nav-brand").textContent = cfg.sealedNote.title;
+      document.getElementById("wax-monogram").textContent =
+        cfg.waxMonogram || (cfg.shortRecipientName || "M").trim().charAt(0).toUpperCase();
+
+      // Màn hình mở thiệp
+      document.getElementById("sealed-kicker").textContent = cfg.sealedNote.kicker;
+      document.getElementById("envelope-sheet-title").textContent = cfg.sealedNote.envelopeSheetLabel;
+      document.getElementById("sealed-title").textContent = cfg.sealedNote.title;
+      document.getElementById("sealed-desc").textContent = cfg.sealedNote.description;
+      document.getElementById("btn-open-note").textContent = cfg.sealedNote.buttonLabel;
+
+      // Phần mở đầu (Hero)
+      const now = new Date();
+      const month = String(now.getMonth() + 1).padStart(2, "0");
+      const year = now.getFullYear();
+      document.getElementById("hero-meta-label").textContent = cfg.hero.metaLabel;
+      document.getElementById("hero-date-label").textContent = `Tháng ${month}, ${year}`;
+      document.getElementById("hero-greeting").innerHTML =
+        `${escapeHtml(cfg.hero.greetingPrefix)} <em>${escapeHtml(cfg.recipientName)}</em>,`;
+      renderParagraphList(document.getElementById("hero-paragraphs"), cfg.hero.paragraphs);
+      document.getElementById("hero-sign").textContent = `${cfg.hero.signaturePrefix} ${cfg.senderName}`;
+      document.getElementById("btn-replay-hero").textContent = cfg.hero.replayButtonLabel;
+
+      // Phần 3 thẻ bất ngờ & Bức thư mở khoá
+      document.getElementById("surprises-kicker").textContent = cfg.surprises.kicker;
+      document.getElementById("surprises-heading").textContent = cfg.surprises.title;
+      document.getElementById("surprises-desc").textContent = cfg.surprises.description;
+      document.getElementById("progress-label").textContent = `Đã mở 0 / ${cfg.surprises.items.length} điều nhỏ`;
+      document.getElementById("progress-counter").textContent = `0 / ${cfg.surprises.items.length}`;
+
+      document.getElementById("secret-letter-kicker").textContent = cfg.secretLetter.kicker;
+      document.getElementById("secret-letter-title").textContent = cfg.secretLetter.title;
+      renderParagraphList(document.getElementById("secret-letter-paragraphs"), cfg.secretLetter.paragraphs);
+      document.getElementById("secret-letter-sign").textContent = cfg.secretLetter.signature;
+
+      // Phần tỏ tình
+      document.getElementById("confession-kicker").textContent = cfg.confession.kicker;
+      document.getElementById("confession-heading").textContent = cfg.confession.question;
+      document.getElementById("confession-sub").textContent = cfg.confession.subtitle;
+      document.getElementById("btn-accept").textContent = cfg.confession.acceptButtonLabel;
+      document.getElementById("btn-hesitate").textContent = cfg.confession.hesitateButtonLabel;
+      document.getElementById("accepted-title").textContent = cfg.confession.acceptedBannerTitle;
+      document.getElementById("accepted-desc").textContent = cfg.confession.acceptedBannerDesc;
+      document.getElementById("accepted-cta").textContent = cfg.confession.acceptedBannerCta;
+
+      // Phần hẹn hò & Date Pass
+      document.getElementById("reply-kicker").textContent = cfg.datePlan.kicker;
+      document.getElementById("reply-heading").textContent = cfg.datePlan.title;
+      document.getElementById("reply-desc").textContent = cfg.datePlan.description;
+      document.getElementById("reply-idea-label").textContent = cfg.datePlan.ideaLabel;
+      document.getElementById("reply-time-label").textContent = cfg.datePlan.timeLabel;
+      document.getElementById("reply-message-label").textContent = cfg.datePlan.messageLabel;
+      document.getElementById("reply-message").placeholder = cfg.datePlan.messagePlaceholder;
+      document.getElementById("custom-idea-input").placeholder = cfg.datePlan.customIdeaPlaceholder;
+      document.getElementById("btn-submit-reply").textContent = cfg.datePlan.submitButtonLabel;
+
+      document.getElementById("pass-header-title").textContent = cfg.datePlan.passHeaderTitle;
+      document.getElementById("pass-badge").textContent = cfg.datePlan.passBadge;
+      document.getElementById("pass-recipient").textContent = cfg.displayRecipientPass;
+      document.getElementById("pass-sender").textContent = cfg.senderName;
+      document.getElementById("pass-note-short").textContent = cfg.datePlan.passShortNote;
+      document.getElementById("pass-message-label").textContent = `Lời nhắn từ ${cfg.recipientName}`;
+      document.getElementById("btn-copy-reply").textContent = cfg.datePlan.copyButtonLabel;
+
+      // Footer
+      document.getElementById("footer-line").textContent = cfg.footerNote;
+      document.getElementById("footer-year").textContent = `${year}`;
+    }
+
+    function initSealedNote() {
+      const overlay = document.getElementById("sealed-overlay");
+      const envelope = document.getElementById("envelope-wrap");
+      const openBtn = document.getElementById("btn-open-note");
+      let opened = false;
+
+      function openNote() {
+        if (opened) return;
+        opened = true;
+
+        envelope.classList.add("is-opening");
+        const rect = envelope.getBoundingClientRect();
+        CanvasFX.miniBurst(rect.left + rect.width / 2, rect.top + rect.height * 0.45);
+
+        setTimeout(() => {
+          overlay.classList.add("is-hidden");
+          document.body.classList.remove("note-locked");
+          runTypewriter();
+        }, prefersReducedMotion ? 50 : 780);
+      }
+
+      openBtn.addEventListener("click", openNote);
+      envelope.addEventListener("click", openNote);
+      envelope.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          openNote();
+        }
+      });
+    }
+
+    /* ==========================================================================
+       5. HIỆU ỨNG GÕ CHỮ CHẬM RÃI PHẦN MỞ ĐẦU (HERO TYPEWRITER)
+       ========================================================================== */
+    function runTypewriter() {
+      const output = document.getElementById("typewriter-output");
+      const cursor = document.getElementById("typewriter-cursor");
+      clearTimeout(state.typewriterTimer);
+
+      const fullText = SITE_CONFIG.hero.typewriterLines.join("\n");
+      if (prefersReducedMotion) {
+        output.textContent = fullText;
+        cursor.style.display = "none";
+        return;
+      }
+
+      output.textContent = "";
+      cursor.style.display = "inline-block";
+      let idx = 0;
+
+      function nextChar() {
+        if (idx >= fullText.length) return;
+        const ch = fullText.charAt(idx);
+        output.textContent += ch;
+        idx += 1;
+
+        let delay = 38;
+        if (ch === "\n") delay = 320;
+        else if (ch === "." || ch === "?" || ch === ":") delay = 220;
+        else if (ch === ",") delay = 120;
+
+        state.typewriterTimer = setTimeout(nextChar, delay);
+      }
+
+      nextChar();
+    }
+
+    /* ==========================================================================
+       6. KHUNG ẢNH DUY NHẤT CỦA CHỊ NGỌC MAI (TỈ LỆ 3:4, FLIP 3D & LIGHTBOX)
+       ========================================================================== */
+    function initSinglePortrait() {
+      const photo = SITE_CONFIG.herPhoto;
+      const img = document.getElementById("her-photo-img");
+      const fallback = document.getElementById("her-photo-fallback");
+      const card = document.getElementById("portrait-card");
+      const cardInner = document.getElementById("portrait-card-inner");
+      const flipBtn = document.getElementById("btn-flip-portrait");
+      const lightboxBtn = document.getElementById("btn-open-lightbox");
+
+      document.getElementById("portrait-eyebrow").textContent = photo.sideEyebrow;
+      document.getElementById("portrait-heading").textContent = photo.sideTitle;
+      document.getElementById("portrait-date-pill").textContent = photo.dateLabel;
+      document.getElementById("portrait-front-caption").textContent = photo.caption;
+      document.getElementById("portrait-editorial-quote").textContent = photo.caption;
+      renderParagraphList(document.getElementById("portrait-side-paragraphs"), photo.sideParagraphs);
+      document.getElementById("portrait-tip-text").textContent = photo.tipText;
+      document.getElementById("portrait-secret-note").textContent = `“${photo.backNote}”`;
+      document.getElementById("portrait-back-sign").textContent = `— ${SITE_CONFIG.senderName}`;
+
+      // Nạp ảnh duy nhất và xử lý fallback gọn gàng nếu thiếu tệp ảnh offline
+      img.alt = photo.alt || photo.caption;
+      img.addEventListener("error", () => {
+        state.photoFailed = true;
+        img.style.display = "none";
+        fallback.classList.add("is-visible");
+      });
+      img.addEventListener("load", () => {
+        state.photoFailed = false;
+        img.style.display = "block";
+        fallback.classList.remove("is-visible");
+      });
+      img.src = photo.src;
+
+      function toggleFlip() {
+        const flipped = card.classList.toggle("is-flipped");
+        flipBtn.textContent = flipped ? "Lật lại ảnh" : "Lật mặt sau";
+      }
+
+      cardInner.addEventListener("click", toggleFlip);
+      cardInner.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          toggleFlip();
+        }
+      });
+      flipBtn.addEventListener("click", toggleFlip);
+
+      // Lightbox xem ảnh lớn
+      const modal = document.getElementById("lightbox");
+      const lbImg = document.getElementById("lightbox-img");
+      const lbFallback = document.getElementById("lightbox-fallback");
+
+      function openLightbox() {
+        document.getElementById("lightbox-caption").textContent = photo.caption;
+        document.getElementById("lightbox-date").textContent = photo.dateLabel;
+        document.getElementById("lightbox-note").textContent = photo.backNote;
+
+        if (state.photoFailed) {
+          lbImg.style.display = "none";
+          lbFallback.classList.add("is-visible");
+        } else {
+          lbImg.style.display = "block";
+          lbFallback.classList.remove("is-visible");
+          lbImg.src = photo.src;
+          lbImg.alt = photo.alt || photo.caption;
+          lbImg.onerror = () => {
+            lbImg.style.display = "none";
+            lbFallback.classList.add("is-visible");
+          };
+        }
+
+        modal.classList.add("is-open");
+      }
+
+      function closeLightbox() {
+        modal.classList.remove("is-open");
+      }
+
+      lightboxBtn.addEventListener("click", openLightbox);
+      document.getElementById("lightbox-close").addEventListener("click", closeLightbox);
+      modal.addEventListener("click", (e) => {
+        if (e.target === modal) closeLightbox();
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && modal.classList.contains("is-open")) {
+          closeLightbox();
+        }
+      });
+    }
+
+    /* ==========================================================================
+       7. 3 THẺ ĐIỀU NHỎ BẤT NGỜ & MỞ KHOÁ BỨC THƯ NGẮN
+       ========================================================================== */
+    function initSurprises() {
+      const grid = document.getElementById("surprises-grid");
+      grid.innerHTML = "";
+
+      SITE_CONFIG.surprises.items.forEach((item) => {
+        const card = document.createElement("button");
+        card.type = "button";
+        card.className = "surprise-card reveal";
+        card.setAttribute("aria-expanded", "false");
+
+        card.innerHTML = `
+          <div class="surprise-head">
+            <span class="surprise-num">${escapeHtml(item.id)}</span>
+            <span class="surprise-tag">Chạm để mở</span>
+          </div>
+
+          <div class="surprise-cover">
+            <div class="surprise-cover-title">${escapeHtml(item.coverTitle)}</div>
+            <p class="surprise-cover-sub">${escapeHtml(SITE_CONFIG.surprises.coverSubtitle)}</p>
+          </div>
+
+          <div class="surprise-body">
+            <h3>${escapeHtml(item.title)}</h3>
+            <p>${escapeHtml(item.description)}</p>
+          </div>
+        `;
+
+        card.addEventListener("click", () => {
+          if (state.openedSurprises.has(item.id)) return;
+          state.openedSurprises.add(item.id);
+          card.classList.add("is-opened");
+          card.setAttribute("aria-expanded", "true");
+          card.querySelector(".surprise-tag").textContent = "Đã mở";
+
+          const rect = card.getBoundingClientRect();
+          CanvasFX.miniBurst(rect.left + rect.width / 2, rect.top + rect.height * 0.42);
+          updateSurpriseProgress();
+        });
+
+        grid.appendChild(card);
+      });
+    }
+
+    function updateSurpriseProgress() {
+      const opened = state.openedSurprises.size;
+      const total = SITE_CONFIG.surprises.items.length;
+      const pct = Math.round((opened / total) * 100);
+
+      document.getElementById("progress-label").textContent = `Đã mở ${opened} / ${total} điều nhỏ`;
+      document.getElementById("progress-counter").textContent = `${opened} / ${total}`;
+      document.getElementById("progress-fill").style.width = `${pct}%`;
+
+      if (opened >= total) {
+        const letterWrap = document.getElementById("secret-letter-wrap");
+        if (!letterWrap.classList.contains("is-unlocked")) {
+          letterWrap.classList.add("is-unlocked");
+          showToast("Chị đã mở đủ 3 điều nhỏ — bức thư ngắn bên dưới đã mở khoá rồi ạ.");
+        }
+      }
+    }
+
+    /* ==========================================================================
+       8. PHẦN LỜI NGỎ — NÚT NÉ THÔNG MINH TRONG KHUNG & PHÁO GIẤY CHAMPAGNE
+       ========================================================================== */
+    function initConfession() {
+      const arena = document.getElementById("choice-arena");
+      const btnAccept = document.getElementById("btn-accept");
+      const btnHesitate = document.getElementById("btn-hesitate");
+      const noteEl = document.getElementById("confession-note");
+      const banner = document.getElementById("accepted-banner");
+
+      function dodge(e) {
+        if (state.accepted) return;
+        if (e && e.type === "touchstart") e.preventDefault();
+
+        const msgs = SITE_CONFIG.confession.dodgeMessages;
+        const msg = msgs[state.dodgeCount % msgs.length];
+        state.dodgeCount += 1;
+
+        noteEl.textContent = msg;
+
+        const maxScale = window.innerWidth < 480 ? 1.16 : 1.24;
+        const scale = Math.min(maxScale, 1 + state.dodgeCount * 0.045);
+        btnAccept.style.setProperty("--accept-scale", scale.toFixed(3));
+
+        btnHesitate.classList.add("is-evading");
+
+        const arenaRect = arena.getBoundingClientRect();
+        const acceptRect = btnAccept.getBoundingClientRect();
+        const hesRect = btnHesitate.getBoundingClientRect();
+
+        const pad = 12;
+        const maxX = Math.max(pad, arenaRect.width - hesRect.width - pad);
+        const maxY = Math.max(pad, arenaRect.height - hesRect.height - pad);
+
+        const acceptCx = acceptRect.left - arenaRect.left + acceptRect.width / 2;
+        const acceptCy = acceptRect.top - arenaRect.top + acceptRect.height / 2;
+
+        // Chọn vị trí né xa nút "Chị đồng ý" nhất trong khung chứa
+        let bestX = pad;
+        let bestY = pad;
+        let bestDist = -1;
+
+        for (let i = 0; i < 16; i++) {
+          const cx = pad + Math.random() * (maxX - pad);
+          const cy = pad + Math.random() * (maxY - pad);
+          const dist = Math.hypot(cx + hesRect.width / 2 - acceptCx, cy + hesRect.height / 2 - acceptCy);
+          if (dist > bestDist) {
+            bestDist = dist;
+            bestX = cx;
+            bestY = cy;
+          }
+        }
+
+        btnHesitate.style.left = `${Math.round(bestX)}px`;
+        btnHesitate.style.top = `${Math.round(bestY)}px`;
+      }
+
+      btnHesitate.addEventListener("mouseenter", dodge);
+      btnHesitate.addEventListener("touchstart", dodge, { passive: false });
+      btnHesitate.addEventListener("click", dodge);
+
+      btnAccept.addEventListener("click", () => {
+        if (state.accepted) return;
+        state.accepted = true;
+
+        btnHesitate.style.display = "none";
+        btnAccept.style.setProperty("--accept-scale", "1.05");
+        btnAccept.textContent = SITE_CONFIG.confession.acceptedButtonLabel;
+        noteEl.textContent = SITE_CONFIG.confession.acceptedNote;
+        banner.classList.add("is-visible");
+
+        CanvasFX.celebrate();
+
+        setTimeout(() => {
+          document.getElementById("reply").scrollIntoView({ behavior: "smooth", block: "start" });
+        }, 1500);
+      });
+    }
+
+    /* ==========================================================================
+       9. FORM HỒI ÂM, GỬI FORMSPREE & TẠO THẺ HẸN HÒ (DATE PASS)
+       ========================================================================== */
+    function formatDateTimeVN(dayVal, timeVal) {
+      if (!dayVal && !timeVal) return "Sắp xếp linh hoạt";
+      if (!dayVal) return `${timeVal} (chọn ngày sau)`;
+      const parts = dayVal.split("-");
+      const dateStr = parts.length === 3 ? `${parts[2]}/${parts[1]}/${parts[0]}` : dayVal;
+      return timeVal ? `${timeVal}, ngày ${dateStr}` : `Ngày ${dateStr}`;
+    }
+
+    function initReplyForm() {
+      const form = document.getElementById("reply-form");
+      const ideaGrid = document.getElementById("idea-grid");
+      const passWrapper = document.getElementById("pass-wrapper");
+      const dateInput = document.getElementById("reply-date");
+      const customWrap = document.getElementById("custom-idea-wrap");
+      const customInput = document.getElementById("custom-idea-input");
+      const customOptionValue = SITE_CONFIG.datePlan.customIdeaValue;
+
+      // Render danh sách gợi ý buổi hẹn từ SITE_CONFIG.datePlan.dateOptions
+      ideaGrid.innerHTML = "";
+      SITE_CONFIG.datePlan.dateOptions.forEach((opt, index) => {
+        const label = document.createElement("label");
+        label.className = "idea-item";
+        label.innerHTML = `
+          <input type="radio" name="dateIdea" value="${escapeHtml(opt.value)}" ${index === 0 ? "checked" : ""} />
+          <span class="idea-box">
+            <strong>${escapeHtml(opt.title)}</strong>
+            <span>${escapeHtml(opt.desc)}</span>
+          </span>
+        `;
+        ideaGrid.appendChild(label);
+      });
+
+      // Gợi ý mặc định là ngày mai
+      const today = new Date();
+      const tomorrow = new Date(today);
+      tomorrow.setDate(today.getDate() + 1);
+      dateInput.min = today.toISOString().split("T")[0];
+      dateInput.value = tomorrow.toISOString().split("T")[0];
+
+      // Hiện ô nhập riêng khi chị chọn "Chị tự chọn địa điểm"
+      form.querySelectorAll('input[name="dateIdea"]').forEach((radio) => {
+        radio.addEventListener("change", () => {
+          document.getElementById("err-idea").classList.remove("is-visible");
+          const isCustom = radio.value === customOptionValue && radio.checked;
+          customWrap.classList.toggle("is-visible", isCustom);
+          if (isCustom) customInput.focus();
+        });
+      });
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const selectedRadio = form.querySelector('input[name="dateIdea"]:checked');
+        const messageEl = document.getElementById("reply-message");
+        const dayVal = dateInput.value;
+        const timeVal = document.getElementById("reply-time").value;
+
+        let valid = true;
+        if (!selectedRadio) {
+          document.getElementById("err-idea").classList.add("is-visible");
+          valid = false;
+        }
+        if (!messageEl.value.trim()) {
+          document.getElementById("err-message").classList.add("is-visible");
+          messageEl.focus();
+          valid = false;
+        } else {
+          document.getElementById("err-message").classList.remove("is-visible");
+        }
+
+        if (!valid) return;
+
+        const chosenIdea =
+          selectedRadio.value === customOptionValue && customInput.value.trim()
+            ? customInput.value.trim()
+            : selectedRadio.value;
+
+        const submitBtn = document.getElementById("btn-submit-reply");
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Đang tạo thẻ hẹn hò...";
+
+        const formattedTime = formatDateTimeVN(dayVal, timeVal);
+        const payload = {
+          nguoi_nhan: SITE_CONFIG.displayRecipientPass,
+          nguoi_gui: SITE_CONFIG.senderName,
+          buoi_hen: chosenIdea,
+          thoi_gian: formattedTime,
+          loi_nhan: messageEl.value.trim()
+        };
+
+        let statusText = "Thẻ hẹn hò đã sẵn sàng. Chị bấm Sao chép hồi âm gửi em qua Messenger nhé.";
+
+        const endpoint = (SITE_CONFIG.formspreeEndpoint || "").trim();
+        if (endpoint) {
+          try {
+            const response = await fetch(endpoint, {
+              method: "POST",
+              headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify(payload)
+            });
+            if (response.ok) {
+              statusText = `Hồi âm của chị đã được gửi thẳng về email của ${SITE_CONFIG.senderName} rồi ạ.`;
+            } else {
+              statusText = "Đã tạo thẻ hẹn hò. Chị sao chép hồi âm gửi thêm qua Messenger giúp em nhé.";
+            }
+          } catch (err) {
+            statusText = "Đã tạo thẻ hẹn hò. Chị sao chép hồi âm bên dưới gửi qua Messenger giúp em nhé.";
+          }
+        }
+
+        const serialNum = String(Math.floor(100 + Math.random() * 900));
+        document.getElementById("pass-serial").textContent = `NO. ${new Date().getFullYear()}-${serialNum}`;
+        document.getElementById("pass-idea").textContent = payload.buoi_hen;
+        document.getElementById("pass-datetime").textContent = payload.thoi_gian;
+        document.getElementById("pass-message").textContent = payload.loi_nhan;
+        document.getElementById("pass-status").textContent = statusText;
+
+        state.lastCopyMessage =
+          `[Thẻ Hẹn Hò — ${SITE_CONFIG.displayRecipientPass} & ${SITE_CONFIG.senderName}]\n` +
+          `- Buổi hẹn: ${payload.buoi_hen}\n` +
+          `- Thời gian: ${payload.thoi_gian}\n` +
+          `- Lời nhắn của chị: "${payload.loi_nhan}"`;
+
+        form.style.display = "none";
+        passWrapper.classList.add("is-visible");
+        submitBtn.disabled = false;
+        submitBtn.textContent = SITE_CONFIG.datePlan.submitButtonLabel;
+
+        CanvasFX.celebrate();
+      });
+
+      document.getElementById("btn-copy-reply").addEventListener("click", () => {
+        if (!state.lastCopyMessage) return;
+        const ok = copyTextSafe(state.lastCopyMessage);
+        showToast(
+          ok
+            ? "Đã sao chép hồi âm. Chị dán gửi qua Messenger giúp em nhé."
+            : "Chị bôi đen nội dung trên thẻ để sao chép giúp em nhé."
+        );
+      });
+
+      document.getElementById("btn-edit-reply").addEventListener("click", () => {
+        passWrapper.classList.remove("is-visible");
+        form.style.display = "block";
+      });
+    }
+
+    /* ==========================================================================
+       10. SCROLL REVEAL (INTERSECTION OBSERVER) & KHỞI TẠO
+       ========================================================================== */
+    function initScrollReveal() {
+      const items = document.querySelectorAll(".reveal");
+      if (prefersReducedMotion || !("IntersectionObserver" in window)) {
+        items.forEach((el) => el.classList.add("is-visible"));
+        return;
+      }
+
+      const observer = new IntersectionObserver(
+        (entries, obs) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              obs.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.12, rootMargin: "0px 0px -24px 0px" }
+      );
+
+      items.forEach((el) => observer.observe(el));
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      bindStaticContent();
+      CanvasFX.init();
+      initSealedNote();
+      initSinglePortrait();
+      initSurprises();
+      initConfession();
+      initReplyForm();
+      initScrollReveal();
+
+      document.getElementById("btn-replay-hero").addEventListener("click", () => {
+        runTypewriter();
+      });
+    });
+  </script>
+</body>
+</html>
